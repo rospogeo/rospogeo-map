@@ -1,0 +1,1 @@
+var geoMap = angular.module('rospgeo.map',[]);
