@@ -1,6 +1,6 @@
 rospogeo-map
 ============
-<map></map>
+
 An AngularJS directive used to insert georeferenced maps in DOM.
 The project uses [openlayers](http://openlayers.org/) API to make the interfaces between the layers that make up a map.
 
@@ -17,7 +17,7 @@ include a simple layer
         </layers>
     </map>
 
-multiple layers of the same source
+multiple layers of same source
 
     <map width="100" height="100">
         <layers name="NASA Global Mosaic" type="WMS" url="http://wms.jpl.nasa.gov/wms.cgi" >
@@ -26,7 +26,7 @@ multiple layers of the same source
         </layers>
     </map>
 
-multiple layers of the any source
+multiple layers of any source
 
     <map width="100" height="100">
         <layers name="Global Imagery" type="WMS" url="http://maps.opengeo.org/geowebcache/service/wms" >
