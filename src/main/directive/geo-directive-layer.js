@@ -9,7 +9,7 @@
         return {
             restrict: 'EA',
             replace: true,
-            controller: ["$rootScope", "$scope", "$http", function($rootScope, $scope, $http) {
+            controller: ["$scope", function($scope) {
 
             }]
         };
@@ -19,7 +19,7 @@
         return {
             restrict: 'EA',
             replace: true,
-            controller: ["$rootScope", "$scope", "$http", function($rootScope, $scope, $http) {
+            controller: ["$scope", function($scope) {
 
             }]
         };
