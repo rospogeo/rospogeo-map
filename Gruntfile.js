@@ -28,6 +28,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -49,19 +51,27 @@ module.exports = function(grunt) {
       clean: [project.vendorDir, project.outDir],
 
       /**
+       * Copy HTML files.
+       */
+      copy: {
+          build: { expand: true, cwd: project.mainDir, src: ['**/*.js', '**/*.css', '**/*.html'], dest: project.buildDir, filter: 'isFile' },
+          dist: { expand: true, cwd: project.mainDir, src: ['**/*', '!**/*.tpl.html', '!**/*.js'], dest: project.distDir, filter: 'isFile' }
+      },
+
+      /**
        * Minify the sources!
        */
       useminPrepare: {
           concat: { },
           cssmin: { },
-          html: project.buildDir + '/app.html',
+          html: project.buildDir + '/idx-*.html',
           options: {
               dest: project.distDir,
               staging: project.buildDir
           }
       },
       uglify: { options: { mangle: false } },
-      usemin: { html: project.distDir + '/app.html' },
+      usemin: { html: project.distDir + '/idx-*.html' },
       ngmin: {
           dist: {
               files: [
@@ -78,7 +88,6 @@ module.exports = function(grunt) {
               src: [project.mainDir + '/**/*.tpl.html'],
               dest: project.buildDir + '/template.js',
               options: {
-                  //usemin: project.buildDir+'/concat/js/app.js',
                   htmlmin: {
                       collapseBooleanAttributes: true,
                       collapseWhitespace: true,
@@ -92,9 +101,8 @@ module.exports = function(grunt) {
                   url: function (url) {
                       return url.replace(project.mainDir + '/', '').replace(project.srcDir, '');
                   },
-                  //module: 'app.templates'
                   bootstrap: function (module, script) {
-                      return "angular.module('rospogeo.maptemplates', []).run(['$templateCache', function($templateCache) { " + script.replace('"assets', '"/assets') + " }]);";
+                      return "angular.module('rospogeo.maptemplates', []).run(['$templateCache', function($templateCache) { " + script + " }]);";
                   }
               }
           }
@@ -115,5 +123,64 @@ module.exports = function(grunt) {
           }
       }
   });
+
+    /**
+     * In order to make it safe to just compile or copy *only* what was changed,
+     * we need to ensure we are starting from a clean, fresh build. So we rename
+     * the `watch` task to `delta` (that's why the configuration var above is
+     * `delta`) and then add a new task called `watch` that does a clean build
+     * before watching for changes.
+     */
+
+    grunt.registerTask('init', [
+        'clean',
+        'resolve'
+    ]);
+
+    grunt.registerTask('build-dev', [
+        'copy',
+        'ngtemplates'
+    ]);
+
+    grunt.registerTask('build-all', [
+        'copy',
+        'ngtemplates',
+        'optimize'
+    ]);
+
+    grunt.registerTask('resolve', [
+        'bower'
+    ]);
+
+
+    grunt.registerTask('release', [
+        'init',
+        'build-all',
+        'compress'
+    ]);
+
+    grunt.registerTask('test', [
+        'build-all',
+        'karma'
+    ]);
+
+    // simple build task
+    grunt.registerTask('optimize', [
+        'useminPrepare',
+        'concat',
+        //'ngmin',
+        'uglify',
+        //'cssmin',
+        //'filerev',
+        'usemin'
+    ]);
+
+    /**
+     * The default task is to build.
+     */
+    grunt.registerTask('default', [
+        'init',
+        'build-all'
+    ]);
 
 };
