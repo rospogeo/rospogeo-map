@@ -102,7 +102,11 @@ module.exports = function(grunt) {
                       return url.replace(project.mainDir + '/', '').replace(project.srcDir, '');
                   },
                   bootstrap: function (module, script) {
-                      return "angular.module('rospogeo.maptemplates', []).run(['$templateCache', function($templateCache) { " + script + " }]);";
+                      //return "angular.module('rospogeo.map', []).run(['$templateCache', function($templateCache) { " + script + " }]);";
+                      var templ_ = '(function(ng, app) { "use strict";';
+                      templ_ += "app.run(['$templateCache', function($templateCache) { " + script + " }]);";
+                      templ_ += "})(angular, geoMap);";
+                      return templ_;
                   }
               }
           }

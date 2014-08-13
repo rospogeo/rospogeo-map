@@ -9,13 +9,14 @@
         return {
             require: '^map',
             restrict: 'E',
+            replace: true,
             transclude: true,
-            template: '<div class="layers"></div>',
+            template: '<div class="layers" ng-transclude></div>',
             controller: ["$scope", function($scope) {
-
+                console.log('layers');
             }],
             link: function(scope, element, attrs, crtl) {
-                console.log(crtl);
+                console.log('layers',crtl);
                 crtl.addLayer();
             }
         };
@@ -28,13 +29,14 @@
             scope: {
                 title: '@'
             },
+            replace: true,
             transclude: true,
             template: '<div class="layer"></div>',
             controller: ["$scope", function($scope) {
 
             }],
             link: function(scope, element, attrs, crtls) {
-                console.log(crtls);
+                console.log('layer',crtls);
                 var mapCrtl = crtls[1];
                 mapCrtl.addLayer();
             }

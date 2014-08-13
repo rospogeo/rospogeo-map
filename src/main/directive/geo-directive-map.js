@@ -13,10 +13,10 @@
                 width: "@",
                 height: "@"
             },
-            replace: true,
+            //replace: true,
             transclude: true,
-            //templateUrl: 'partials/geo-directive-map.tpl.html',
-            template: '<div  class="smallmap"></div>',
+            templateUrl: 'partials/geo-directive-map.tpl.html',
+            //template: '<div class="smallmap" ng-transclude></div>',
             controller: ["$scope", function($scope) {
                 $scope.lon = 5;
                 $scope.lat = 40;
@@ -27,13 +27,14 @@
                         console.error("map not found");
                         return;
                     }
-                    console.log("layer");
+                    console.log("add-layer");
                     var layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
                     $scope.map.addLayer(layer);
                 };
             }],
             link: function (scope, element, attributes) {
-                scope.map = new OpenLayers.Map( scope.id );
+                scope.map = new OpenLayers.Map(scope.id + '_map');
+                console.log('map', scope.map);
                 //scope.layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
                 //scope.map.addLayer(scope.layer);
 
