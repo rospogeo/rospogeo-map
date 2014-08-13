@@ -25,7 +25,9 @@
             scope: {
                 type: '@',
                 name: '@',
-                url: '@'
+                url: '@',
+                rlayers: '@',
+                format: '@'
             },
             controller: ["$scope", function($scope) {
 

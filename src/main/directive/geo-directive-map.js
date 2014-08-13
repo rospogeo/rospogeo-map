@@ -34,8 +34,27 @@
                 console.log('map', scope.map);
                 for (var i=0; i<scope.layers.length; i++) {
                     var layer = scope.layers[i];
-                    var olayer = new OpenLayers.Layer.WMS(layer.name, layer.url, {layers: 'basic'} );
-                    scope.map.addLayer(olayer);
+                    switch(layer.type.toUpperCase()) {
+                        case 'GOOGLE':
+                            var olayers = [
+                                new OpenLayers.Layer.Google("Google Physical", {type: google.maps.MapTypeId.TERRAIN}),
+                                new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 20}),
+                                new OpenLayers.Layer.Google("Google Hybrid", {type: google.maps.MapTypeId.HYBRID, numZoomLevels: 20}),
+                                new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22})
+                            ];
+                            scope.map.addLayers(olayers);
+                            break;
+                        case 'WMS':
+                            var olayer = new OpenLayers.Layer.WMS(layer.name, layer.url, {layers: layer.layers} );
+                            scope.map.addLayer(olayer);
+                            break;
+//                        case 'WFS':
+//                            var olayer = new OpenLayers.Layer.WFS(layer.name, layer.url, {layers: layer.layers, format: layer.format} );
+//                            scope.map.addLayer(olayer);
+//                            break;
+                    }
+                    if (olayer) {
+                    }
                 }
 
                 scope.map.setCenter(new OpenLayers.LonLat(scope.lon, scope.lat), scope.zoom);
