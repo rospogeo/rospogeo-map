@@ -9,15 +9,11 @@
         return {
             require: '^map',
             restrict: 'E',
-            replace: true,
-            transclude: true,
-            template: '<div class="layers" ng-transclude></div>',
             controller: ["$scope", function($scope) {
-                console.log('layers');
+
             }],
             link: function(scope, element, attrs, crtl) {
                 console.log('layers',crtl);
-                crtl.addLayer();
             }
         };
     }]);
@@ -27,18 +23,18 @@
             require: ['^layers', '^map'],
             restrict: 'E',
             scope: {
-                title: '@'
+                type: '@',
+                name: '@',
+                url: '@'
             },
-            replace: true,
-            transclude: true,
-            template: '<div class="layer"></div>',
             controller: ["$scope", function($scope) {
 
             }],
             link: function(scope, element, attrs, crtls) {
-                console.log('layer',crtls);
+                console.log('layer',crtls, attrs);
+                var layer = attrs;
                 var mapCrtl = crtls[1];
-                mapCrtl.addLayer();
+                mapCrtl.addLayer(layer);
             }
         };
     }]);

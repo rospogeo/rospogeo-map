@@ -13,7 +13,7 @@
                 width: "@",
                 height: "@"
             },
-            //replace: true,
+            replace: true,
             transclude: true,
             templateUrl: 'partials/geo-directive-map.tpl.html',
             //template: '<div class="smallmap" ng-transclude></div>',
@@ -22,24 +22,24 @@
                 $scope.lat = 40;
                 $scope.zoom = 5;
 
-                this.addLayer = function(){
-                    if (!$scope.map) {
-                        console.error("map not found");
-                        return;
-                    }
-                    console.log("add-layer");
-                    var layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
-                    $scope.map.addLayer(layer);
+                $scope.layers = new Array();
+                this.addLayer = function(layer){
+//                    $scope.layers.push({name: "OpenLayers WMS", url: "http://vmap0.tiles.osgeo.org/wms/vmap0"})
+                    $scope.layers.push(layer);
                 };
             }],
             link: function (scope, element, attributes) {
-                scope.map = new OpenLayers.Map(scope.id + '_map');
+                console.log('map-link');
+                scope.map = new OpenLayers.Map( scope.id );
                 console.log('map', scope.map);
-                //scope.layer = new OpenLayers.Layer.WMS( "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
-                //scope.map.addLayer(scope.layer);
+                for (var i=0; i<scope.layers.length; i++) {
+                    var layer = scope.layers[i];
+                    var olayer = new OpenLayers.Layer.WMS(layer.name, layer.url, {layers: 'basic'} );
+                    scope.map.addLayer(olayer);
+                }
 
-                //scope.map.setCenter(new OpenLayers.LonLat(scope.lon, scope.lat), scope.zoom);
-                //scope.map.addControl( new OpenLayers.Control.LayerSwitcher() );
+                scope.map.setCenter(new OpenLayers.LonLat(scope.lon, scope.lat), scope.zoom);
+                scope.map.addControl( new OpenLayers.Control.LayerSwitcher() );
             }
         };
     }]);
