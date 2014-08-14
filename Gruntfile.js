@@ -70,7 +70,14 @@ module.exports = function(grunt) {
               staging: project.buildDir
           }
       },
-      uglify: { options: { mangle: false } },
+      uglify: {
+          options: {
+              mangle: false,
+              compress: {
+                  drop_console: true
+              }
+          }
+      },
       usemin: { html: project.distDir + '/idx-*.html' },
       ngmin: {
           dist: {
