@@ -9,12 +9,32 @@ The project uses [openlayers](http://openlayers.org/) API to make the interfaces
 Usage
 -----
 
-include a layers
+include a simple layer
 
-    <map id="rospo" width="100" height="100">
-        <layers>
-            <layer type="WMS" name="OpenLayers WMS" url="http://vmap0.tiles.osgeo.org/wms/vmap0" layers="basic" ></layer>
-            <layer type="Google" ></layer>
+    <map width="100" height="100" >
+        <layers name="Global Imagery" type="WMS" url="http://maps.opengeo.org/geowebcache/service/wms" >
+            <layer name="bluemarble" isbase="true" ></layer>
+        </layers>
+    </map>
+
+multiple layers of same source
+
+    <map width="100" height="100">
+        <layers name="NASA Global Mosaic" type="WMS" url="http://wms.jpl.nasa.gov/wms.cgi" >
+            <layer name="modis" ></layer>
+            <layer name="global_mosaic" ></layer>
+        </layers>
+    </map>
+
+multiple layers of any source
+
+    <map width="100" height="100">
+        <layers name="Global Imagery" type="WMS" url="http://maps.opengeo.org/geowebcache/service/wms" >
+            <layer name="bluemarble" isbase="true" ></layer>
+        </layers>
+        <layers name="NASA Global Mosaic" type="WMS" url="http://wms.jpl.nasa.gov/wms.cgi" >
+            <layer name="modis" ></layer>
+            <layer name="global_mosaic" ></layer>
         </layers>
     </map>
 

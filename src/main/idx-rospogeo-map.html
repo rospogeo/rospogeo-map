@@ -24,17 +24,25 @@
         var geo = angular.module('rospogeo', ['rospgeo.map']);
         geo.controller('GeoMapCtrl', function ($scope) {
             console.log($scope);
+            $scope.width = 500;
+            $scope.height = 300;
         });
 
     </script>
 
 </head>
 <body>
-    <map id="rospo" width="100" height="100">
-        <layers>
-            <layer type="WMS" name="OpenLayers WMS" url="http://vmap0.tiles.osgeo.org/wms/vmap0" layers="basic" ></layer>
-            <layer type="Google" ></layer>
-        </layers>
+    <h1>Configure map: </h1>
+    <label for="range-width">width: {{width}}</label>
+    <input id="range-width" type="range" data-ng-model="width" min="100" max="1000"/>
+    <label for="range-height">height: {{height}}</label>
+    <input id="range-height" type="range" data-ng-model="height" min="100" max="1000"/>
+    <hr/>
+    <map id="rospo" width="{{width}}" height="{{height}}" class="smallmap">
+        <layer type="WMS" name="OpenLayers WMS" url="http://vmap0.tiles.osgeo.org/wms/vmap0">
+            <layer-param name="basic" ></layer-param>
+        </layer>
+        <layer type="Google"></layer>
     </map>
     <br/>
     <hr/>
@@ -42,10 +50,10 @@
     <pre>
         <code>
             &lt;map id="rospo" width="100" height="100"&gt;
-                &lt;layers&gt;
-                    &lt;layer type="WMS" name="OpenLayers WMS" url="http://vmap0.tiles.osgeo.org/wms/vmap0" layers="basic" &gt;&lt;/layer&gt;
-                    &lt;layer type="Google" &gt;&lt;/layer&gt;
-                &lt;/layers&gt;
+                &lt;layer type="WMS" name="OpenLayers WMS" url="http://vmap0.tiles.osgeo.org/wms/vmap0"&gt;
+                    &lt;layer-param name="basic" &gt;&lt;/layer-param&gt;
+                &lt;/layer&gt;
+                &lt;layer type="Google"&gt;&lt;/layer&gt;
             &lt;/map>
         </code>
     </pre>

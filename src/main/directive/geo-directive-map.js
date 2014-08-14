@@ -17,7 +17,7 @@
             transclude: true,
             templateUrl: 'partials/geo-directive-map.tpl.html',
             //template: '<div class="smallmap" ng-transclude></div>',
-            controller: ["$scope", function($scope) {
+            controller: ["$scope", "$attrs", function($scope, $attrs) {
                 $scope.lon = 5;
                 $scope.lat = 40;
                 $scope.zoom = 5;
@@ -28,7 +28,7 @@
                     $scope.layers.push(layer);
                 };
             }],
-            link: function (scope, element, attributes) {
+            link: function (scope, element, attrs) {
                 console.log('map-link');
                 scope.map = new OpenLayers.Map( scope.id );
                 console.log('map', scope.map);
@@ -59,6 +59,24 @@
 
                 scope.map.setCenter(new OpenLayers.LonLat(scope.lon, scope.lat), scope.zoom);
                 scope.map.addControl( new OpenLayers.Control.LayerSwitcher() );
+                //scope.map.updateSize();
+
+                attrs.$observe('width', function(newVal){
+                    if (newVal < 10) return;
+                    console.log('new width', newVal, 'old width', scope['width'], 'css width', element.css('width'));
+                    element.css('width', newVal+'px');
+                    if (scope.map) {
+                        scope.map.updateSize();
+                    }
+                });
+                attrs.$observe('height', function(newVal){
+                    if (newVal < 10) return;
+                    console.log('new height', newVal, 'old height', scope['height'], 'css height', element.css('height'));
+                    element.css('height', newVal+'px');
+                    if (scope.map) {
+                        scope.map.updateSize();
+                    }
+                });
             }
         };
     }]);
