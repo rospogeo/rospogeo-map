@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="../vendors/openlayers/theme/default/style.css" type="text/css">
     <link rel="stylesheet" href="../vendors/openlayers/examples/style.css" type="text/css">
 
-    <script src="../vendors/angular/angular.min.js" ></script>
+    <script src="../vendors/angular/angular.min.js"></script>
     <!-- build:js rospogeo-map-with-openlayers-.js -->
-    <script src="../vendors/openlayers/lib/OpenLayers.js" ></script>
+    <script src="../vendors/openlayers/lib/OpenLayers.js"></script>
     <script src="module.js" ></script>
-    <script src="directive/geo-directive-layer.js" ></script>
-    <script src="directive/geo-directive-map.js" ></script>
+    <script src="directive/geo-directive-map.js"></script>
+	<script src="directive/geo-directive-layer.js"></script>
+	<script src="directive/geo-directive-layer-param.js"></script>
     <!-- endbuild -->
     <script>
         var geo = angular.module('rospogeo', ['rospgeo.map']);

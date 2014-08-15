@@ -19,10 +19,10 @@
             transclude: true,
             template: '<div class="layers" ng-transclude></div>',
             controller: ["$scope", function($scope) {
-                $scope.layers = new Array();
+                $scope.layers = [];
 
                 this.addLayerParam = function(param) {
-                    $scope.layers.push(typeof param == "object" ? param.name : param);
+                    $scope.layers.push(ng.isObject(param) && param.hasOwnProperty("name") ? param.name : param);
                 };
             }],
             link: function(scope, element, attrs, crtl) {
@@ -36,28 +36,6 @@
                 };
                 console.log('addLayer', layer);
                 crtl.addLayer(layer);
-            }
-        };
-    }]);
-
-    app.directive('layerParam', [function() {
-        return {
-            require: ['^layer', '^map'],
-            restrict: 'E',
-            scope: {
-                name: '@'
-            },
-            replace: true,
-            template: '<div class="layers-param"></div>',
-            controller: ["$scope", function($scope) {
-
-            }],
-            link: function(scope, element, attrs, crtls) {
-                console.log('layer-param',crtls, attrs);
-                var param = attrs;
-                // layer controller
-                var crtl = crtls[0];
-                crtl.addLayerParam(param);
             }
         };
     }]);

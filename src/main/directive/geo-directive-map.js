@@ -22,7 +22,7 @@
                 $scope.lat = 40;
                 $scope.zoom = 5;
 
-                $scope.layers = new Array();
+                $scope.layers = [];
                 this.addLayer = function(layer){
 //                    $scope.layers.push({name: "OpenLayers WMS", url: "http://vmap0.tiles.osgeo.org/wms/vmap0"})
                     $scope.layers.push(layer);
@@ -32,7 +32,7 @@
                 console.log('map-link');
                 scope.map = new OpenLayers.Map( scope.id );
                 console.log('map', scope.map);
-                for (var i=0; i<scope.layers.length; i++) {
+                for (var i = 0, l = scope.layers.length; i < l; i++) {
                     var layer = scope.layers[i];
                     switch(layer.type.toUpperCase()) {
                         case 'GOOGLE':
