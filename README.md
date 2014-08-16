@@ -2,7 +2,7 @@ rospogeo-map
 ============
 
 An AngularJS directive used to insert georeferenced maps in DOM.
-The project uses [openlayers](http://openlayers.org/) API to make the interfaces between the layers that make up a map.
+The project uses [OpenLayers](http://openlayers.org/) API to make the interfaces between the layers that make up a map.
 
 [See it in action](http://rospogeo.github.io/rospogeo-map).
 

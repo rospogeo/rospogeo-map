@@ -31,7 +31,7 @@
                     type: attrs.type,
                     name: attrs.name,
                     url: attrs.url,
-                    layers: scope.layers ? scope.layers.toString() : null,
+                    layers: scope.layers ? scope.layers : [],
                     format: attrs.format
                 };
                 console.log('addLayer', layer);
