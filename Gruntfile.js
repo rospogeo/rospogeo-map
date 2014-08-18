@@ -55,7 +55,8 @@ module.exports = function(grunt) {
        */
       copy: {
           build: { expand: true, cwd: project.mainDir, src: ['**/*.js', '**/*.css', '**/*.html'], dest: project.buildDir, filter: 'isFile' },
-          dist: { expand: true, cwd: project.mainDir, src: ['**/*', '!**/*.tpl.html', '!**/*.js'], dest: project.distDir, filter: 'isFile' }
+          dist: { expand: true, cwd: project.mainDir, src: ['**/*', '!**/*.tpl.html', '!**/*.js'], dest: project.distDir, filter: 'isFile' },
+          //vendors: { expand: true, cwd: project.vendorDir, src: ['**/*'], dest: project.outDir+'/vendors', filter: 'isFile' }
       },
 
       /**

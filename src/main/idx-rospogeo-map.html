@@ -17,8 +17,9 @@
     <!-- build:js rospogeo-map.js -->
     <script src="module.js" ></script>
     <script src="template.js" ></script>
-    <script src="directive/geo-directive-map.js" ></script>
-    <script src="directive/geo-directive-layer.js" ></script>
+    <script src="directive/geo-directive-map.js"></script>
+    <script src="directive/geo-directive-layer.js"></script>
+	<script src="directive/geo-directive-layer-param.js" ></script>
     <!-- endbuild -->
     <script>
         var geo = angular.module('rospogeo', ['rospgeo.map']);
@@ -38,11 +39,13 @@
     <label for="range-height">height: {{height}}</label>
     <input id="range-height" type="range" data-ng-model="height" min="100" max="1000"/>
     <hr/>
-    <map id="rospo" width="{{width}}" height="{{height}}" class="smallmap">
+    <map id="rospo" width="{{width}}" height="{{height}}" class="smallmap" lon="10" lat="3" zoom="5">
         <layer type="WMS" name="OpenLayers WMS" url="http://vmap0.tiles.osgeo.org/wms/vmap0">
             <layer-param name="basic" ></layer-param>
         </layer>
-        <layer type="Google"></layer>
+        <layer type="Google">
+            <layer-param name="STREET"></layer-param>
+        </layer>
     </map>
     <br/>
     <hr/>
