@@ -1,4 +1,4 @@
-rospogeo-map
+rospogeo-map [![Build Status](https://travis-ci.org/rospogeo/rospogeo-map.svg?branch=master)](https://travis-ci.org/rospogeo/rospogeo-map)
 ============
 
 An AngularJS directive used to insert georeferenced maps in DOM.
